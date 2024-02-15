@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>PID Reroll Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        .calculator {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        #resultContainer {
+            flex: 1; /* Allow the container to grow to fill available space */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #resultContainer th, #resultContainer td {
+            padding: 5px;
+        }
+
+
+        #calcButton{
+            float: right;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        input[type="checkbox"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        #goToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #goToTopBtn:hover {
+            background-color: #45a049;
+        }
+
+        #goToTopBtn svg {
+          width: 30px;
+          height: 30px;
+          fill: #4CAF50;
+          vertical-align: middle;
+        }
+
+        html, body {
+          scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Left Table-->
+    <div class="col-md-6">
+        <h1>PID Reroll Calculator</h1>
+      <table class="inputTable"> 
+        <form id="calculatorForm">
+            <tr>
+                <td><label for="seedInput">Seed</label></td>
+                <td><input type="text" id="seedInput" name="seedInput" value="0" required></td>
+            </tr>
+            <tr>
+                <td><label for="initialAdvances">Initial Advances</label></td>
+                <td><input type="number" id="initialAdvances" name="initialAdvances" value="0" required></td>
+            </tr>
+            <tr>
+                <td><label for="synchCheckbox">Synchronize</label></td>
+                <td><input type="checkbox" id="synchCheckbox" name="synchCheckbox"></td>
+            </tr>
+            <tr>
+                <td><label id="natures">Synchronize Nature</label></td>
+                <td><select id="synchNature" name="natures">
+                        <option value="Hardy">Hardy</option>
+                        <option value="Lonely">Lonely</option>
+                        <option value="Brave">Brave</option>
+                        <option value="Adamant">Adamant</option>
+                        <option value="Naughty">Naughty</option>
+                        <option value="Bold">Bold</option>
+                        <option value="Docile">Docile</option>
+                        <option value="Relaxed">Relaxed</option>
+                        <option value="Impish">Impish</option>
+                        <option value="Lax">Lax</option>
+                        <option value="Timid">Timid</option>
+                        <option value="Hasty">Hasty</option>
+                        <option value="Serious">Serious</option>
+                        <option value="Jolly">Jolly</option>
+                        <option value="Naive">Naive</option>
+                        <option value="Modest">Modest</option>
+                        <option value="Mild">Mild</option>
+                        <option value="Quiet">Quiet</option>
+                        <option value="Bashful">Bashful</option>
+                        <option value="Rash">Rash</option>
+                        <option value="Calm">Calm</option>
+                        <option value="Gentle">Gentle</option>
+                        <option value="Sassy">Sassy</option>
+                        <option value="Careful">Careful</option>
+                        <option value="Quirky">Quirky</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="rockSmashCheckbox">Rock Smash</label></td>
+                <td><input type="checkbox" id="rockSmashCheckbox" name="rockSmashCheckbox"></td>
+            </tr>
+            <tr>
+                <td><label for="safariCheckbox">Safari Zone</label></td>
+                <td><input type="checkbox" id="safariCheckbox" name="safariCheckbox"></td>
+            </tr>
+            <tr>
+                <td><label for="numResults">Number of Results</label></td>
+                <td><input type="number" id="numResults" name="numResults" value="50" required></td>
+            </tr>
+            <tr>
+                <td><label for="pokefinderVersionCheckbox">PokéFinder 4.1.X</label></td>
+                <td><input type="checkbox" id="pokefinderVersionCheckbox" name="pokefinderVersionCheckbox"></td>
+            </tr>
+        </form>
+    </table> 
+      <button type="button" id="calcButton" onclick="calculate()">Calculate</button>
+    </div>
+
+    <!-- Right Table -->
+    <div class="col-md-6">
+      <table class="table table-bordered" id="resultContainer">
+        <thead>
+          <tr>
+            <th>Advances</th>
+            <th>Nature</th>
+            <th>PID Rerolls</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Entries will be dynamically added here using JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<button id="goToTopBtn" onclick="goToTop()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+</button>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"];
+
+    function next(seed, n = 1){
+      let rng = BigInt(seed);
+      let mult = BigInt(1103515245);
+      let add = BigInt(24691);
+
+      for (let i = 0; i < n; i++) {
+          rng = BigInt(mult * rng + add) & BigInt(0xFFFFFFFF);
+      }
+      return rng;
+    }
+
+    function getPID(seed){
+        var low = next(seed,1) >> BigInt(16);
+        var high = next(seed,2) >> BigInt(16);
+        return (high << BigInt(16)) + low;
+    }
+
+    function getNatureWild(seed, offset = 0){
+        var adv = 4 + offset;
+        var nature = (next(seed,adv) >> BigInt(16)) % BigInt(25);
+        return natures[nature];
+    }
+
+    function getRerolls(seed, nature, offset = 0){
+        var advances = 5  + offset;
+        var nat = natures.indexOf(nature)
+        var rerolls = 0
+        while(1){
+            var low = next(seed,advances) >> BigInt(16);
+            var high = next(seed,advances + 1) >> BigInt(16);
+            var pid = (high << BigInt(16)) + low;
+            advances += 2;
+            
+            if (pid % BigInt(25) == BigInt(nat)){
+                return rerolls;
+            }
+            rerolls += 1;
+        }
+    }
+
+    function rngstate(seed, advance){
+      return next(parseInt(seed,16),advance) % BigInt(2**32);
+    }
+
+    function getNature(seed, synch, synchnature, offset = 0){
+      if(synch == 1){
+        var synchcheck = (next(seed, 4 + offset) >> BigInt(16)) % BigInt(2);
+        if(synchcheck == 0){
+          return [synchnature, getRerolls(seed, synchnature, offset)];
+        }
+        else{
+          let nat = getNatureWild(seed, offset + 1);
+          return [nat, getRerolls(seed, nat, offset + 1)];
+        }
+      }
+      else{
+        let nat = getNatureWild(seed, offset);
+        return [nat, getRerolls(seed, nat, offset)];
+      }
+    }
+
+    function calculate() {
+        var numResults = document.getElementById("numResults").value;
+        var resultContainer = document.getElementById("resultContainer");
+
+        var seed = document.getElementById("seedInput").value;
+        var initialAdvances = parseInt(document.getElementById("initialAdvances").value);
+        var prng = rngstate(seed,initialAdvances);
+
+        var synch = +document.getElementById("synchCheckbox").checked;
+        var synchnature = document.getElementById("synchNature").value;
+
+        var rocksmash = +document.getElementById("rockSmashCheckbox").checked;
+        var safari = +document.getElementById("safariCheckbox").checked;
+        var pfversion = +document.getElementById("pokefinderVersionCheckbox").checked;
+
+        var numresults = parseInt(document.getElementById("numResults").value);
+        var offset = safari + rocksmash - pfversion;
+
+        $("#resultContainer tbody").empty();
+
+        for (let i = 0; i < numResults; i++) {
+            var result = getNature(prng, synch, synchnature, offset);
+            var adv = initialAdvances + i;
+            $("#resultContainer tbody").append("<tr><td>" + adv + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
+            prng = next(prng, 1);
+        }
+    }
+    window.onscroll = function () {
+        toggleGoToTopButton();
+    };
+
+    function toggleGoToTopButton() {
+        const goToTopBtn = document.getElementById('goToTopBtn');
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            goToTopBtn.style.display = 'block';
+        } else {
+            goToTopBtn.style.display = 'none';
+        }
+    }
+
+    // Scroll to the top of the page
+    function goToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+
+</body>
+</html>
