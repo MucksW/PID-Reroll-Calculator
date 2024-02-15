@@ -179,6 +179,10 @@
                 <td><label for="pokefinderVersionCheckbox">PokéFinder 4.1.X</label></td>
                 <td><input type="checkbox" id="pokefinderVersionCheckbox" name="pokefinderVersionCheckbox"></td>
             </tr>
+            <tr>
+                <td><label for="minRerolls">Minimum Rerolls</label></td>
+                <td><input type="number" id="minRerolls" name="minRerolls" value="0" required></td>
+            </tr>
         </form>
     </table> 
       <button type="button" id="calcButton" onclick="calculate()">Calculate</button>
@@ -293,15 +297,22 @@
         var pfversion = +document.getElementById("pokefinderVersionCheckbox").checked;
 
         var numresults = parseInt(document.getElementById("numResults").value);
+        var minRerolls = parseInt(document.getElementById("minRerolls").value);
         var offset = safari + rocksmash - pfversion;
 
         $("#resultContainer tbody").empty();
 
-        for (let i = 0; i < numResults; i++) {
+        var advances = initialAdvances;
+        for (let i = 0; i < numResults;) {
             var result = getNature(prng, synch, synchnature, offset);
-            var adv = initialAdvances + i;
-            $("#resultContainer tbody").append("<tr><td>" + adv + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
+
+            if(parseInt(result[1]) > minRerolls){
+               $("#resultContainer tbody").append("<tr><td>" + advances + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
+               i++;
+            }
+            //$("#resultContainer tbody").append("<tr><td>" + adv + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
             prng = next(prng, 1);
+            advances++;
         }
     }
     window.onscroll = function () {
