@@ -12,17 +12,8 @@
             margin: 20px;
         }
 
-        .calculator {
-            max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-right: 20px;
-        }
-
         #resultContainer {
-            flex: 1; /* Allow the container to grow to fill available space */
+            flex: 1;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
@@ -37,6 +28,7 @@
         #calcButton{
             float: right;
             margin-top: 10px;
+            margin-bottom: 20px;
         }
 
         table {
@@ -52,6 +44,16 @@
 
         th {
             background-color: #f2f2f2;
+        }
+
+        input, select {
+            text-align: center;
+        }
+
+        input[type='number']::-webkit-inner-spin-button, 
+        input[type='number']::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            margin: 0;
         }
 
         button {
@@ -113,79 +115,110 @@
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container">
   <div class="row">
     <!-- Left Table-->
     <div class="col-md-6">
         <h1>PID Reroll Calculator</h1>
-      <table class="inputTable"> 
-        <form id="calculatorForm">
-            <tr>
-                <td><label for="seedInput">Seed</label></td>
-                <td><input type="text" id="seedInput" name="seedInput" value="0" required></td>
-            </tr>
-            <tr>
-                <td><label for="initialAdvances">Initial Advances</label></td>
-                <td><input type="number" id="initialAdvances" name="initialAdvances" value="0" required></td>
-            </tr>
-            <tr>
-                <td><label for="synchCheckbox">Synchronize</label></td>
-                <td><input type="checkbox" id="synchCheckbox" name="synchCheckbox"></td>
-            </tr>
-            <tr>
-                <td><label id="natures">Synchronize Nature</label></td>
-                <td><select id="synchNature" name="natures">
-                        <option value="Hardy">Hardy</option>
-                        <option value="Lonely">Lonely</option>
-                        <option value="Brave">Brave</option>
-                        <option value="Adamant">Adamant</option>
-                        <option value="Naughty">Naughty</option>
-                        <option value="Bold">Bold</option>
-                        <option value="Docile">Docile</option>
-                        <option value="Relaxed">Relaxed</option>
-                        <option value="Impish">Impish</option>
-                        <option value="Lax">Lax</option>
-                        <option value="Timid">Timid</option>
-                        <option value="Hasty">Hasty</option>
-                        <option value="Serious">Serious</option>
-                        <option value="Jolly">Jolly</option>
-                        <option value="Naive">Naive</option>
-                        <option value="Modest">Modest</option>
-                        <option value="Mild">Mild</option>
-                        <option value="Quiet">Quiet</option>
-                        <option value="Bashful">Bashful</option>
-                        <option value="Rash">Rash</option>
-                        <option value="Calm">Calm</option>
-                        <option value="Gentle">Gentle</option>
-                        <option value="Sassy">Sassy</option>
-                        <option value="Careful">Careful</option>
-                        <option value="Quirky">Quirky</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><label for="rockSmashCheckbox">Rock Smash</label></td>
-                <td><input type="checkbox" id="rockSmashCheckbox" name="rockSmashCheckbox"></td>
-            </tr>
-            <tr>
-                <td><label for="safariCheckbox">Safari Zone</label></td>
-                <td><input type="checkbox" id="safariCheckbox" name="safariCheckbox"></td>
-            </tr>
-            <tr>
-                <td><label for="numResults">Number of Results</label></td>
-                <td><input type="number" id="numResults" name="numResults" value="50" required></td>
-            </tr>
-            <tr>
-                <td><label for="pokefinderVersionCheckbox">PokéFinder 4.1.X</label></td>
-                <td><input type="checkbox" id="pokefinderVersionCheckbox" name="pokefinderVersionCheckbox"></td>
-            </tr>
-            <tr>
-                <td><label for="minRerolls">Minimum Rerolls</label></td>
-                <td><input type="number" id="minRerolls" name="minRerolls" value="0" required></td>
-            </tr>
-        </form>
-    </table> 
-      <button type="button" id="calcButton" onclick="calculate()">Calculate</button>
+        <table class="inputTable"> 
+            <form id="calculatorForm">
+                <tr>
+                    <th><label for="seedInput">Seed</label></th>
+                    <td colspan="2"><input type="text" id="seedInput" name="seedInput" value="0" required></td>
+                </tr>
+                <tr>
+                    <th><label for="initialAdvances">Initial Advances</label></th>
+                    <td colspan="2"><input type="number" id="initialAdvances" name="initialAdvances" value="0" required></td>
+                </tr>
+                <tr>
+                    <th><label for="synchCheckbox">Synchronize</label></th>
+                    <td ><input type="checkbox" id="synchCheckbox" name="synchCheckbox"></td>
+                    <td ><select id="synchNature" name="natures">
+                            <option value="Hardy">Hardy</option>
+                            <option value="Lonely">Lonely</option>
+                            <option value="Brave">Brave</option>
+                            <option value="Adamant">Adamant</option>
+                            <option value="Naughty">Naughty</option>
+                            <option value="Bold">Bold</option>
+                            <option value="Docile">Docile</option>
+                            <option value="Relaxed">Relaxed</option>
+                            <option value="Impish">Impish</option>
+                            <option value="Lax">Lax</option>
+                            <option value="Timid">Timid</option>
+                            <option value="Hasty">Hasty</option>
+                            <option value="Serious">Serious</option>
+                            <option value="Jolly">Jolly</option>
+                            <option value="Naive">Naive</option>
+                            <option value="Modest">Modest</option>
+                            <option value="Mild">Mild</option>
+                            <option value="Quiet">Quiet</option>
+                            <option value="Bashful">Bashful</option>
+                            <option value="Rash">Rash</option>
+                            <option value="Calm">Calm</option>
+                            <option value="Gentle">Gentle</option>
+                            <option value="Sassy">Sassy</option>
+                            <option value="Careful">Careful</option>
+                            <option value="Quirky">Quirky</option>
+                        </select>
+                </tr>
+
+                <tr>
+                    <th><label for="rockSmashCheckbox">Rock Smash</label></th>
+                    <td colspan="2"><input type="checkbox" id="rockSmashCheckbox" name="rockSmashCheckbox"></td>
+                </tr>
+                <tr>
+                    <th><label for="safariCheckbox">Safari Zone</label></th>
+                    <td colspan="2"><input type="checkbox" id="safariCheckbox" name="safariCheckbox"></td>
+                </tr>
+                <tr>
+                    <th><label for="numResults">Number of Results</label></th>
+                    <td colspan="2"><input type="number" id="numResults" name="numResults" value="50" required></td>
+                </tr>
+                <tr>
+                    <th><label for="pokefinderVersionCheckbox">PokéFinder 4.1.X</label></th>
+                    <td colspan="2"><input type="checkbox" id="pokefinderVersionCheckbox" name="pokefinderVersionCheckbox"></td>
+                </tr>
+                <tr>
+                    <th colspan="3"><label>Filters</label></th>
+                </tr>
+                <tr>
+                    <th><label for="rerollFilter">Minimum Rerolls</label></th>
+                    <td colspan="2"><input type="number" id="rerollFilter" name="rerollFilter" value="0" required></td>
+                </tr>
+                <tr>
+                    <th><label for="natureFilter">Nature</label></th>
+                    <td colspan="2"><select id="natureFilter" name="natureFilter">
+                            <option value="None">-</option>
+                            <option value="Hardy">Hardy</option>
+                            <option value="Lonely">Lonely</option>
+                            <option value="Brave">Brave</option>
+                            <option value="Adamant">Adamant</option>
+                            <option value="Naughty">Naughty</option>
+                            <option value="Bold">Bold</option>
+                            <option value="Docile">Docile</option>
+                            <option value="Relaxed">Relaxed</option>
+                            <option value="Impish">Impish</option>
+                            <option value="Lax">Lax</option>
+                            <option value="Timid">Timid</option>
+                            <option value="Hasty">Hasty</option>
+                            <option value="Serious">Serious</option>
+                            <option value="Jolly">Jolly</option>
+                            <option value="Naive">Naive</option>
+                            <option value="Modest">Modest</option>
+                            <option value="Mild">Mild</option>
+                            <option value="Quiet">Quiet</option>
+                            <option value="Bashful">Bashful</option>
+                            <option value="Rash">Rash</option>
+                            <option value="Calm">Calm</option>
+                            <option value="Gentle">Gentle</option>
+                            <option value="Sassy">Sassy</option>
+                            <option value="Careful">Careful</option>
+                            <option value="Quirky">Quirky</option>
+                        </select></td>
+                </tr>
+            </form>
+        </table> 
+        <button type="button" id="calcButton" onclick="calculate()">Calculate</button>
     </div>
 
     <!-- Right Table -->
@@ -297,7 +330,8 @@
         var pfversion = +document.getElementById("pokefinderVersionCheckbox").checked;
 
         var numresults = parseInt(document.getElementById("numResults").value);
-        var minRerolls = parseInt(document.getElementById("minRerolls").value);
+        var minRerolls = parseInt(document.getElementById("rerollFilter").value);
+        var natureFilter = document.getElementById("natureFilter").value;
         var offset = safari + rocksmash - pfversion;
 
         $("#resultContainer tbody").empty();
@@ -306,7 +340,7 @@
         for (let i = 0; i < numResults;) {
             var result = getNature(prng, synch, synchnature, offset);
 
-            if(parseInt(result[1]) > minRerolls){
+            if(parseInt(result[1]) > minRerolls && natureFilter == "None" || natureFilter == result[0]){
                $("#resultContainer tbody").append("<tr><td>" + advances + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
                i++;
             }
