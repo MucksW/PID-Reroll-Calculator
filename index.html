@@ -340,7 +340,7 @@
         for (let i = 0; i < numResults;) {
             var result = getNature(prng, synch, synchnature, offset);
 
-            if(parseInt(result[1]) > minRerolls && natureFilter == "None" || natureFilter == result[0]){
+            if(parseInt(result[1]) > minRerolls && (natureFilter == "None" || natureFilter == result[0])){
                $("#resultContainer tbody").append("<tr><td>" + advances + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
                i++;
             }
