@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>PID Reroll Calculator</title>
     <style>
         body {
@@ -69,9 +72,9 @@
             background-color: #45a049;
         }
 
-        input[type="text"],
-        input[type="number"],
-        select,
+        td > input[type="text"],
+        td > input[type="number"],
+        td > select,
         input[type="checkbox"] {
             width: 100%;
             padding: 8px;
@@ -111,6 +114,19 @@
         html, body {
           scroll-behavior: smooth;
         }
+
+        .rerollFilters input[type="number"] {
+            width: 40%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .inputTable td{
+            width: 50%;
+        }
+
     </style>
 </head>
 <body>
@@ -123,17 +139,17 @@
         <table class="inputTable"> 
             <form id="calculatorForm">
                 <tr>
-                    <th><label for="seedInput">Seed</label></th>
+                    <th>Seed</th>
                     <td colspan="2"><input type="text" id="seedInput" name="seedInput" value="0" required></td>
                 </tr>
                 <tr>
-                    <th><label for="initialAdvances">Initial Advances</label></th>
+                    <th>Initial Advances</th>
                     <td colspan="2"><input type="number" id="initialAdvances" name="initialAdvances" value="0" required></td>
                 </tr>
                 <tr>
-                    <th><label for="synchCheckbox">Synchronize</label></th>
-                    <td ><input type="checkbox" id="synchCheckbox" name="synchCheckbox"></td>
-                    <td ><select id="synchNature" name="natures">
+                    <th>Synchronize</th>
+                    <td style="width:10%;"><input type="checkbox" id="synchCheckbox" name="synchCheckbox"></td>
+                    <td><select id="synchNature" name="natures">
                             <option value="Hardy">Hardy</option>
                             <option value="Lonely">Lonely</option>
                             <option value="Brave">Brave</option>
@@ -163,30 +179,36 @@
                 </tr>
 
                 <tr>
-                    <th><label for="rockSmashCheckbox">Rock Smash</label></th>
+                    <th>Rock Smash</th>
                     <td colspan="2"><input type="checkbox" id="rockSmashCheckbox" name="rockSmashCheckbox"></td>
                 </tr>
                 <tr>
-                    <th><label for="safariCheckbox">Safari Zone</label></th>
+                    <th>Safari Zone</th>
                     <td colspan="2"><input type="checkbox" id="safariCheckbox" name="safariCheckbox"></td>
                 </tr>
                 <tr>
-                    <th><label for="numResults">Number of Results</label></th>
+                    <th>Number of Results</th>
                     <td colspan="2"><input type="number" id="numResults" name="numResults" value="50" required></td>
                 </tr>
                 <tr>
-                    <th><label for="pokefinderVersionCheckbox">PokéFinder 4.1.X</label></th>
+                    <th>PokéFinder 4.1.X</th>
                     <td colspan="2"><input type="checkbox" id="pokefinderVersionCheckbox" name="pokefinderVersionCheckbox"></td>
                 </tr>
                 <tr>
-                    <th colspan="3"><label>Filters</label></th>
+                    <th colspan="3">Filters</th>
                 </tr>
                 <tr>
-                    <th><label for="rerollFilter">Minimum Rerolls</label></th>
-                    <td colspan="2"><input type="number" id="rerollFilter" name="rerollFilter" value="0" required></td>
+                    <th><span for="rerollFilter">Rerolls</th>
+                    <td colspan="2">
+                        <div class="rerollFilters">
+                            <input type="number" id="rerollFilterMin" name="rerollFilterMin" placeholder="Min">
+                            -
+                            <input type="number" id="rerollFilterMax" name="rerollFilterMax" placeholder="Max">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <th><label for="natureFilter">Nature</label></th>
+                    <th>Nature</th>
                     <td colspan="2"><select id="natureFilter" name="natureFilter">
                             <option value="None">-</option>
                             <option value="Hardy">Hardy</option>
@@ -244,11 +266,6 @@
       <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
 </button>
-
-<!-- Bootstrap JS and jQuery -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <script>
     natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"];
@@ -330,21 +347,29 @@
         var pfversion = +document.getElementById("pokefinderVersionCheckbox").checked;
 
         var numresults = parseInt(document.getElementById("numResults").value);
-        var minRerolls = parseInt(document.getElementById("rerollFilter").value);
+        var minRerolls = parseInt(document.getElementById("rerollFilterMin").value);
+        var maxRerolls = parseInt(document.getElementById("rerollFilterMax").value);
         var natureFilter = document.getElementById("natureFilter").value;
         var offset = safari + rocksmash - pfversion;
 
         $("#resultContainer tbody").empty();
 
+        if(isNaN(minRerolls)) minRerolls = 0;
+        if(isNaN(maxRerolls)) maxRerolls = Infinity;
+
+        if(minRerolls > maxRerolls){
+            return;
+        }
+
         var advances = initialAdvances;
         for (let i = 0; i < numResults;) {
             var result = getNature(prng, synch, synchnature, offset);
 
-            if(parseInt(result[1]) > minRerolls && (natureFilter == "None" || natureFilter == result[0])){
+            if(parseInt(result[1]) >= minRerolls && parseInt(result[1]) <= maxRerolls && (natureFilter == "None" || natureFilter == result[0])){
                $("#resultContainer tbody").append("<tr><td>" + advances + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
                i++;
             }
-            //$("#resultContainer tbody").append("<tr><td>" + adv + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
+ 
             prng = next(prng, 1);
             advances++;
         }
@@ -362,7 +387,6 @@
         }
     }
 
-    // Scroll to the top of the page
     function goToTop() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
