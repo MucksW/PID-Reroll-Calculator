@@ -127,6 +127,16 @@
             width: 50%;
         }
 
+        #dropdownMenuButton {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
     </style>
 </head>
 <body>
@@ -140,66 +150,103 @@
             <form id="calculatorForm">
                 <tr>
                     <th>Seed</th>
-                    <td colspan="2"><input type="text" id="seedInput" name="seedInput" value="0" required></td>
+                    <td><input type="text" id="seedInput" name="seedInput" value="0" required></td>
                 </tr>
                 <tr>
                     <th>Initial Advances</th>
-                    <td colspan="2"><input type="number" id="initialAdvances" name="initialAdvances" value="0" required></td>
+                    <td><input type="number" id="initialAdvances" name="initialAdvances" value="0" required></td>
                 </tr>
                 <tr>
-                    <th>Synchronize</th>
-                    <td style="width:10%;"><input type="checkbox" id="synchCheckbox" name="synchCheckbox"></td>
-                    <td><select id="synchNature" name="natures">
-                            <option value="Hardy">Hardy</option>
-                            <option value="Lonely">Lonely</option>
-                            <option value="Brave">Brave</option>
-                            <option value="Adamant">Adamant</option>
-                            <option value="Naughty">Naughty</option>
-                            <option value="Bold">Bold</option>
-                            <option value="Docile">Docile</option>
-                            <option value="Relaxed">Relaxed</option>
-                            <option value="Impish">Impish</option>
-                            <option value="Lax">Lax</option>
-                            <option value="Timid">Timid</option>
-                            <option value="Hasty">Hasty</option>
-                            <option value="Serious">Serious</option>
-                            <option value="Jolly">Jolly</option>
-                            <option value="Naive">Naive</option>
-                            <option value="Modest">Modest</option>
-                            <option value="Mild">Mild</option>
-                            <option value="Quiet">Quiet</option>
-                            <option value="Bashful">Bashful</option>
-                            <option value="Rash">Rash</option>
-                            <option value="Calm">Calm</option>
-                            <option value="Gentle">Gentle</option>
-                            <option value="Sassy">Sassy</option>
-                            <option value="Careful">Careful</option>
-                            <option value="Quirky">Quirky</option>
-                        </select>
+                    <th>Lead Ability</th>
+                    <td style="width:60%;">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">None</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" id="None">None</a>
+                                <div class="dropdown dropend">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-synchronize" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Synchronize</a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-synchronize">
+                                        <a class="dropdown-item" id="Synchronize: Hardy">Hardy</a>
+                                        <a class="dropdown-item" id="Synchronize: Lonely">Lonely</a>
+                                        <a class="dropdown-item" id="Synchronize: Brave">Brave</a>
+                                        <a class="dropdown-item" id="Synchronize: Adamant">Adamant</a>
+                                        <a class="dropdown-item" id="Synchronize: Naughty">Naughty</a>
+                                        <a class="dropdown-item" id="Synchronize: Bold">Bold</a>
+                                        <a class="dropdown-item" id="Synchronize: Docile">Docile</a>
+                                        <a class="dropdown-item" id="Synchronize: Relaxed">Relaxed</a>
+                                        <a class="dropdown-item" id="Synchronize: Impish">Impish</a>
+                                        <a class="dropdown-item" id="Synchronize: Lax">Lax</a>
+                                        <a class="dropdown-item" id="Synchronize: Timid">Timid</a>
+                                        <a class="dropdown-item" id="Synchronize: Hasty">Hasty</a>
+                                        <a class="dropdown-item" id="Synchronize: Serious">Serious</a>
+                                        <a class="dropdown-item" id="Synchronize: Jolly">Jolly</a>
+                                        <a class="dropdown-item" id="Synchronize: Naive">Naive</a>
+                                        <a class="dropdown-item" id="Synchronize: Modest">Modest</a>
+                                        <a class="dropdown-item" id="Synchronize: Mild">Mild</a>
+                                        <a class="dropdown-item" id="Synchronize: Quiet">Quiet</a>
+                                        <a class="dropdown-item" id="Synchronize: Bashful">Bashful</a>
+                                        <a class="dropdown-item" id="Synchronize: Rash">Rash</a>
+                                        <a class="dropdown-item" id="Synchronize: Calm">Calm</a>
+                                        <a class="dropdown-item" id="Synchronize: Gentle">Gentle</a>
+                                        <a class="dropdown-item" id="Synchronize: Sassy">Sassy</a>
+                                        <a class="dropdown-item" id="Synchronize: Careful">Careful</a>
+                                        <a class="dropdown-item" id="Synchronize: Quirky">Quirky</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown dropend">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-cutecharm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cute Charm</a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-cutecharm">
+                                        <div class="dropdown dropend">
+                                            <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-cutecharm-male" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">♂ Lead</a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdown-cutecharm-male">
+                                                <a class="dropdown-item" id="Cute Charm: ♂ Lead, Target 25% ♂">Target 25% ♂ / 75% ♀</a>
+                                                <a class="dropdown-item" id="Cute Charm: ♂ Lead, Target 50% ♂">Target 50% ♂ / 50% ♀</a>
+                                                <a class="dropdown-item" id="Cute Charm: ♂ Lead, Target 75% ♂">Target 75% ♂ / 25% ♀</a>
+                                                <a class="dropdown-item" id="Cute Charm: ♂ Lead, Target 87.5% ♂">Target 87.5% ♂ / 12.5% ♀</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown dropend">
+                                            <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-cutecharm-female" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">♀ Lead</a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdown-cutecharm-female">
+                                                <a class="dropdown-item" id="Cute Charm: ♀ Lead, Target 25% ♂">Target 25% ♂ / 75% ♀</a>
+                                                <a class="dropdown-item" id="Cute Charm: ♀ Lead, Target 50% ♂">Target 50% ♂ / 50% ♀</a>
+                                                <a class="dropdown-item" id="Cute Charm: ♀ Lead, Target 75% ♂">Target 75% ♂ / 25% ♀</a>
+                                                <a class="dropdown-item" id="Cute Charm: ♀ Lead, Target 87.5% ♂">Target 87.5% ♂ / 12.5% ♀</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="dropdown-item" id="Magnet Pull">Magnet Pull</a>
+                                <a class="dropdown-item" id="Static">Static</a>
+                                <a class="dropdown-item" id="Hustle">Hustle</a>
+                                <a class="dropdown-item" id="Pressure">Pressure</a>
+                                <a class="dropdown-item" id="Vital Spirit">Vital Spirit</a>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
-
                 <tr>
                     <th>Rock Smash</th>
-                    <td colspan="2"><input type="checkbox" id="rockSmashCheckbox" name="rockSmashCheckbox"></td>
+                    <td><input type="checkbox" id="rockSmashCheckbox" name="rockSmashCheckbox"></td>
                 </tr>
                 <tr>
                     <th>Safari Zone</th>
-                    <td colspan="2"><input type="checkbox" id="safariCheckbox" name="safariCheckbox"></td>
+                    <td><input type="checkbox" id="safariCheckbox" name="safariCheckbox"></td>
                 </tr>
                 <tr>
                     <th>Number of Results</th>
-                    <td colspan="2"><input type="number" id="numResults" name="numResults" value="50" required></td>
+                    <td><input type="number" id="numResults" name="numResults" value="50" required></td>
                 </tr>
                 <tr>
                     <th>PokéFinder 4.1.X</th>
-                    <td colspan="2"><input type="checkbox" id="pokefinderVersionCheckbox" name="pokefinderVersionCheckbox"></td>
+                    <td><input type="checkbox" id="pokefinderVersionCheckbox" name="pokefinderVersionCheckbox"></td>
                 </tr>
                 <tr>
-                    <th colspan="3">Filters</th>
+                    <th colspan="2">Filters</th>
                 </tr>
                 <tr>
                     <th><span for="rerollFilter">Rerolls</th>
-                    <td colspan="2">
+                    <td>
                         <div class="rerollFilters">
                             <input type="number" id="rerollFilterMin" name="rerollFilterMin" placeholder="Min">
                             -
@@ -209,7 +256,7 @@
                 </tr>
                 <tr>
                     <th>Nature</th>
-                    <td colspan="2"><select id="natureFilter" name="natureFilter">
+                    <td><select id="natureFilter" name="natureFilter">
                             <option value="None">-</option>
                             <option value="Hardy">Hardy</option>
                             <option value="Lonely">Lonely</option>
@@ -266,19 +313,27 @@
       <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
 </button>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 <script>
     natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"];
 
-    function next(seed, n = 1){
-      let rng = BigInt(seed);
-      let mult = BigInt(1103515245);
-      let add = BigInt(24691);
+    var abilityVblank = 0;
+    var synch = 0;
+    var synchnature = "Hardy";
+    var cutecharm = 0;
+    var cc_lead = "male";
+    var cc_target_ratio = 0;
 
-      for (let i = 0; i < n; i++) {
-          rng = BigInt(mult * rng + add) & BigInt(0xFFFFFFFF);
-      }
-      return rng;
+    function next(seed, n = 1){
+        let rng = BigInt(seed);
+        let mult = BigInt(1103515245);
+        let add = BigInt(24691);
+
+        for (let i = 0; i < n; i++) {
+            rng = BigInt(mult * rng + add) & BigInt(0xFFFFFFFF);
+        }
+        return rng;
     }
 
     function getPID(seed){
@@ -293,8 +348,35 @@
         return natures[nature];
     }
 
-    function getRerolls(seed, nature, offset = 0){
-        var advances = 5  + offset;
+    function getGenderFromRatioAndPID(pid, ratio){
+        var genderValue = pid & BigInt(0xFF);
+
+        var thresh;
+        switch(ratio){
+            case "25":
+                thresh = 191;
+                break;
+            case "50":
+                thresh = 127;
+                break;
+            case "75":
+                thresh = 63;
+                break;
+            case "875":
+                thresh = 31;
+        }
+
+        if(genderValue >= thresh){
+            return "male";
+        }
+        else{
+            return "female";
+        }
+
+    }
+
+    function getRerolls(seed, nature, cutecharm, cc_lead, cc_target_ratio, offset = 0){
+        var advances = 5 + offset;
         var nat = natures.indexOf(nature)
         var rerolls = 0
         while(1){
@@ -303,7 +385,7 @@
             var pid = (high << BigInt(16)) + low;
             advances += 2;
             
-            if (pid % BigInt(25) == BigInt(nat)){
+            if ((pid % BigInt(25) == BigInt(nat)) && (!cutecharm || getGenderFromRatioAndPID(pid, cc_target_ratio) != cc_lead)){
                 return rerolls;
             }
             rerolls += 1;
@@ -311,24 +393,31 @@
     }
 
     function rngstate(seed, advance){
-      return next(parseInt(seed,16),advance) % BigInt(2**32);
+        return next(parseInt(seed,16),advance) % BigInt(2**32);
     }
 
-    function getNature(seed, synch, synchnature, offset = 0){
-      if(synch == 1){
-        var synchcheck = (next(seed, 4 + offset) >> BigInt(16)) % BigInt(2);
-        if(synchcheck == 0){
-          return [synchnature, getRerolls(seed, synchnature, offset)];
+    function getNature(seed, synch, synchnature, cutecharm, cc_lead, cc_target_ratio, offset = 0) {
+        if (synch == 1) {
+            var synchcheck = (next(seed, 4 + offset) >> BigInt(16)) & BigInt(1);
+            if (synchcheck == 0) {
+                return [synchnature, getRerolls(seed, synchnature, cutecharm, cc_lead, cc_target_ratio, offset)];
+            } else {
+                let nat = getNatureWild(seed, offset + 1);
+                return [nat, getRerolls(seed, nat, cutecharm, cc_lead, cc_target_ratio, offset + 1)];
+            }
+        } else if (cutecharm == 1) {
+            var cc_check = (next(seed, 4 + offset) >> BigInt(16)) % BigInt(3);
+            if (cc_check != 0) {
+                let nat = getNatureWild(seed, offset + 1);
+                return [nat, getRerolls(seed, nat, cutecharm, cc_lead, cc_target_ratio, offset + 1)];
+            } else {
+                let nat = getNatureWild(seed, offset + 1);
+                return [nat, getRerolls(seed, nat, 0, cc_lead, cc_target_ratio, offset + 1)];
+            }
+        } else {
+            let nat = getNatureWild(seed, offset);
+            return [nat, getRerolls(seed, nat, cutecharm, cc_lead, cc_target_ratio, offset)];
         }
-        else{
-          let nat = getNatureWild(seed, offset + 1);
-          return [nat, getRerolls(seed, nat, offset + 1)];
-        }
-      }
-      else{
-        let nat = getNatureWild(seed, offset);
-        return [nat, getRerolls(seed, nat, offset)];
-      }
     }
 
     function calculate() {
@@ -339,9 +428,6 @@
         var initialAdvances = parseInt(document.getElementById("initialAdvances").value);
         var prng = rngstate(seed,initialAdvances);
 
-        var synch = +document.getElementById("synchCheckbox").checked;
-        var synchnature = document.getElementById("synchNature").value;
-
         var rocksmash = +document.getElementById("rockSmashCheckbox").checked;
         var safari = +document.getElementById("safariCheckbox").checked;
         var pfversion = +document.getElementById("pokefinderVersionCheckbox").checked;
@@ -350,7 +436,7 @@
         var minRerolls = parseInt(document.getElementById("rerollFilterMin").value);
         var maxRerolls = parseInt(document.getElementById("rerollFilterMax").value);
         var natureFilter = document.getElementById("natureFilter").value;
-        var offset = safari + rocksmash - pfversion;
+        var offset = safari + rocksmash + abilityVblank - pfversion;
 
         $("#resultContainer tbody").empty();
 
@@ -363,7 +449,7 @@
 
         var advances = initialAdvances;
         for (let i = 0; i < numResults;) {
-            var result = getNature(prng, synch, synchnature, offset);
+            var result = getNature(prng, synch, synchnature, cutecharm, cc_lead, cc_target_ratio, offset);
 
             if(parseInt(result[1]) >= minRerolls && parseInt(result[1]) <= maxRerolls && (natureFilter == "None" || natureFilter == result[0])){
                $("#resultContainer tbody").append("<tr><td>" + advances + "</td><td>" + result[0] + "</td><td>" + result[1] + "</td></tr>");
@@ -391,6 +477,78 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+
+    (function($bs) {
+        const CLASS_NAME = 'has-child-dropdown-show';
+        $bs.Dropdown.prototype.toggle = function(_orginal) {
+            return function() {
+                document.querySelectorAll('.' + CLASS_NAME).forEach(function(e) {
+                    e.classList.remove(CLASS_NAME);
+                });
+                let dd = this._element.closest('.dropdown').parentNode.closest('.dropdown');
+                for (; dd && dd !== document; dd = dd.parentNode.closest('.dropdown')) {
+                    dd.classList.add(CLASS_NAME);
+                }
+                return _orginal.call(this);
+            }
+        }($bs.Dropdown.prototype.toggle);
+
+        document.querySelectorAll('.dropdown').forEach(function(dd) {
+            dd.addEventListener('hide.bs.dropdown', function(e) {
+                if (this.classList.contains(CLASS_NAME)) {
+                    this.classList.remove(CLASS_NAME);
+                    e.preventDefault();
+                }
+                e.stopPropagation();
+            });
+        });
+
+    })(bootstrap);
+  
+    $(".dropdown-item").on("click", (function() {
+        var ability = $(this).attr('id');
+
+        if (ability.includes("dropdown")) {
+            return;
+        }
+
+        synch = 0;
+
+        if (!(ability.includes("Synchronize") || ability.includes("Cute Charm") || ability.includes("None"))) {
+            abilityVblank = 1;
+        } else {
+            abilityVblank = 0;
+        }
+
+        if (ability.includes("Synchronize")) {
+            synch = 1;
+            synchnature = $(this).attr('id').split(': ')[1];
+        } else {
+            synch = 0;
+        }
+
+        if (ability.includes("Cute Charm")) {
+            cutecharm = 1;
+            cc_string = $(this).attr('id').split(': ')[1].split(', ');
+
+            if(cc_string[0].includes("♂")){
+                cc_lead = "male";
+            }
+            else{
+               cc_lead = "female";
+            }
+
+            cc_target_ratio = cc_string[1].replace(/\D/g, "");
+
+
+        } else {
+            cutecharm = 0;
+        }
+
+        $("#dropdownMenuButton").html(ability);
+
+    }));
+
 </script>
 
 </body>
